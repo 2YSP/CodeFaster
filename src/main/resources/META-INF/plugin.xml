@@ -1,9 +1,13 @@
 <idea-plugin>
     <id>cn.sp.CodeHelper</id>
     <name>CodeHelper</name>
+    <version>1.0</version>
     <vendor email="stylishman525@qq.com" url="https://www.cnblogs.com/2YSP">ship</vendor>
 
-    <description><![CDATA[help you code faster]]></description>
+    <description><![CDATA[help you code faster, like auto convert list to map etc.]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0"/>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
