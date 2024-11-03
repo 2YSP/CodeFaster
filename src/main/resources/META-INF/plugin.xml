@@ -1,0 +1,29 @@
+<idea-plugin>
+    <id>cn.sp.CodeHelper</id>
+    <name>CodeHelper</name>
+    <vendor email="stylishman525@qq.com" url="https://www.cnblogs.com/2YSP">ship</vendor>
+
+    <description><![CDATA[help you code faster]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="CodeHelper.ListToMapAction" class="cn.sp.action.ListToMapAction" text="Convert List To Map"
+                description="generate code of list to map">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="CodeHelper.GroupByListToMapAction" class="cn.sp.action.GroupByListToMapAction"
+                text="Group By List To Map" description="generate code of group by list to map">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
