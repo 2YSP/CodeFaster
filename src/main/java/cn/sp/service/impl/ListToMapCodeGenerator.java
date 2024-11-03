@@ -57,16 +57,21 @@ public class ListToMapCodeGenerator implements CodeGenerator {
         String className = CodeUtils.parseGenericTypeName(canonicalText);
         GenerateCodeInfo generateCodeInfo = new GenerateCodeInfo();
         generateCodeInfo.setClassName(className);
-        // todo 校验是否具备该字段
         generateCodeInfo.setFieldName(fieldName);
-        String getterMethodName = CodeUtils.getGetterMethodName(fieldName);
-        generateCodeInfo.setFieldGetterMethodName(getterMethodName);
 
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
         PsiClass psiClass = javaPsiFacade.findClass(className, GlobalSearchScope.allScope(project));
         generateCodeInfo.setSimpleClassName(psiClass.getName());
         PsiField psiField = CodeUtils.getField(psiClass, fieldName);
+        // 校验是否具备该字段
+        if (psiField == null){
+            throw new ShipException("Invalid field name!");
+        }
         generateCodeInfo.setFieldType(psiField.getType().getPresentableText());
+
+        String getterMethodName = CodeUtils.getGetterMethodName(fieldName);
+        generateCodeInfo.setFieldGetterMethodName(getterMethodName);
+
         PsiIdentifier psiIdentifier = CodeUtils.getPsiIdentifierElement(generateContext.getPsiElement());
         String variableName = psiIdentifier.getText();
         generateCodeInfo.setVariableName(variableName);

@@ -32,7 +32,5 @@ public class ListToMapAction extends AnAction {
             exception.printStackTrace();
             Messages.showErrorDialog(project, "system error", "System Error");
         }
-
-
     }
 }

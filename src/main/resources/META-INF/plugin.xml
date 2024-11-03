@@ -20,10 +20,42 @@
         <action id="CodeHelper.ListToMapAction" class="cn.sp.action.ListToMapAction" text="Convert List To Map"
                 description="generate code of list to map">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="shift M"/>
+
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="shift M"
+                    remove="true"/>
+
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="shift M"
+                    replace-all="true"/>
         </action>
         <action id="CodeHelper.GroupByListToMapAction" class="cn.sp.action.GroupByListToMapAction"
                 text="Group By List To Map" description="generate code of group by list to map">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="shift G"/>
+
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="shift G"
+                    remove="true"/>
+
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="shift G"
+                    replace-all="true"/>
         </action>
     </actions>
 </idea-plugin>
