@@ -26,19 +26,19 @@
             <add-to-group group-id="GenerateGroup" anchor="last"/>
             <keyboard-shortcut
                     keymap="$default"
-                    first-keystroke="shift M"/>
+                    first-keystroke="control shift T"/>
 
             <!-- ...except the "Mac OS X" keymap and its children. -->
             <keyboard-shortcut
                     keymap="Mac OS X"
-                    first-keystroke="shift M"
+                    first-keystroke="control shift T"
                     remove="true"/>
 
             <!-- The "Mac OS X 10.5+" keymap and its children will have only
             this keyboard shortcut for this action. -->
             <keyboard-shortcut
                     keymap="Mac OS X 10.5+"
-                    first-keystroke="shift M"
+                    first-keystroke="control shift T"
                     replace-all="true"/>
         </action>
         <action id="CodeHelper.GroupByListToMapAction" class="cn.sp.action.GroupByListToMapAction"
@@ -46,19 +46,37 @@
             <add-to-group group-id="GenerateGroup" anchor="last"/>
             <keyboard-shortcut
                     keymap="$default"
-                    first-keystroke="shift G"/>
+                    first-keystroke="control shift Y"/>
 
             <!-- ...except the "Mac OS X" keymap and its children. -->
             <keyboard-shortcut
                     keymap="Mac OS X"
-                    first-keystroke="shift G"
+                    first-keystroke="control shift Y"
                     remove="true"/>
 
             <!-- The "Mac OS X 10.5+" keymap and its children will have only
             this keyboard shortcut for this action. -->
             <keyboard-shortcut
                     keymap="Mac OS X 10.5+"
-                    first-keystroke="shift G"
+                    first-keystroke="control shift Y"
+                    replace-all="true"/>
+        </action>
+        <action id="CodeHelper.ConvertToNewListAction" class="cn.sp.action.ConvertToNewListAction"
+                text="Convert To New List" description="convert current list to new List by field">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl U"/>
+
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="control shift U"
+                    remove="true"/>
+
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="control shift U"
                     replace-all="true"/>
         </action>
     </actions>

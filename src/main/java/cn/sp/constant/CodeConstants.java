@@ -2,6 +2,7 @@ package cn.sp.constant;
 
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.model.GenerateCodeInfo;
+import cn.sp.test.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,15 @@ public class CodeConstants {
 
         String groupByCodeStr = "Map<$fieldType,List<$simpleClassName>> $newVariableName = $variableName.stream().collect(Collectors.groupingBy($simpleClassName::$fieldGetterMethodName));";
         CODE_TEMPLATE_MAP.put(ActionTypeEnum.GROUP_BY_LIST_TO_MAP, groupByCodeStr);
+
+        String toNewListStr = "List<$fieldType> $newVariableName = $variableName.stream().map($simpleClassName::$fieldGetterMethodName).distinct().collect(Collectors.toList());";
+        CODE_TEMPLATE_MAP.put(ActionTypeEnum.TO_NEW_LIST, toNewListStr);
+
+    }
+
+    public static void main(String[] args) {
+        List<User> userList = new ArrayList<>();
+        List<String> nameList = userList.stream().map(User::getName).distinct().collect(Collectors.toList());
 
     }
 }

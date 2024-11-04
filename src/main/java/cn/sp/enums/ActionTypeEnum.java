@@ -7,11 +7,14 @@ package cn.sp.enums;
  */
 public enum ActionTypeEnum {
 
-    LIST_TO_MAP("list_to_map",""),
+    LIST_TO_MAP("list_to_map","list转map"),
     /**
      *
      */
-    GROUP_BY_LIST_TO_MAP("group_by_list_to_map","");
+    GROUP_BY_LIST_TO_MAP("group_by_list_to_map","根据某个字段group by转map"),
+
+    TO_NEW_LIST("to_new_list","根据某个字段转list"),
+    ;
 
     private String code;
 
