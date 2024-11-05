@@ -14,6 +14,8 @@ public enum ActionTypeEnum {
     GROUP_BY_LIST_TO_MAP("group_by_list_to_map","根据某个字段group by转map"),
 
     TO_NEW_LIST("to_new_list","根据某个字段转list"),
+
+    RETURN_IF_EMPTY("return_if_empty","如果当前list为空则return"),
     ;
 
     private String code;

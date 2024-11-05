@@ -4,12 +4,20 @@ import cn.sp.constant.CodeConstants;
 import cn.sp.exception.ShipException;
 import cn.sp.model.GenerateContext;
 import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.*;
+import com.intellij.psi.codeStyle.CodeStyleManager;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.PsiShortNamesCache;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -237,13 +245,86 @@ public class CodeUtils {
                         : CodeConstants.INDENTATION_CHARACTER_4_SPACE);
     }
 
-    public static void commitAndSaveDocument(PsiDocumentManager psiDocumentManager, Document document) {
-        if (document != null) {
-            psiDocumentManager.doPostponedOperationsAndUnblockDocument(document);
-            psiDocumentManager.commitDocument(document);
-            FileDocumentManager.getInstance().saveDocument(document);
+    /**
+     * 获取缩进符
+     * @param method
+     * @param document
+     * @return
+     */
+    public static String extractIndentText(PsiMethod method, Document document) {
+        int methodStartOffset = method.getTextRange().getStartOffset();
+        int lineNumber = document.getLineNumber(methodStartOffset);
+        int lineStartOffset = document.getLineStartOffset(lineNumber);
+        String currIndentedText = document.getText(new TextRange(lineStartOffset, methodStartOffset));
+        if (currIndentedText == null) {
+            return CodeConstants.INDENTATION_CHARACTER_4_SPACE;
+        }
+        return currIndentedText.contains(CodeConstants.INDENTATION_CHARACTER_TAB)
+                ? CodeConstants.INDENTATION_CHARACTER_TAB : CodeConstants.INDENTATION_CHARACTER_4_SPACE;
+    }
+
+
+    /**
+     * 校验是否存在guava包依赖
+     * @param project
+     * @param element
+     * @return
+     */
+    public static boolean checkGuavaExist(Project project, PsiElement element) {
+        @Nullable Module moduleForPsiElement = ModuleUtilCore.findModuleForPsiElement(element);
+        if(moduleForPsiElement==null){
+            return false;
+        }
+        PsiClass[] listss = PsiShortNamesCache.getInstance(project).getClassesByName("Lists", GlobalSearchScope.moduleRuntimeScope(moduleForPsiElement, false));
+        for (PsiClass psiClass : listss) {
+            if (psiClass.getQualifiedName().equals("com.google.common.collect.Lists")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static void addImportToFile(PsiDocumentManager psiDocumentManager, PsiJavaFile containingFile, Document document, Set<String> newImportList) {
+        if (newImportList.size() > 0) {
+            Iterator<String> iterator = newImportList.iterator();
+            while (iterator.hasNext()) {
+                String u = iterator.next();
+                if (u.startsWith("java.lang")) {
+                    iterator.remove();
+                }
+            }
+        }
+
+        if (newImportList.size() > 0) {
+            PsiJavaFile javaFile = containingFile;
+            PsiImportStatement[] importStatements = javaFile.getImportList().getImportStatements();
+            Set<String> containedSet = new HashSet<>();
+            for (PsiImportStatement s : importStatements) {
+                containedSet.add(s.getQualifiedName());
+            }
+            StringBuilder newImportText = new StringBuilder();
+            for (String newImport : newImportList) {
+                if (!containedSet.contains(newImport)) {
+                    newImportText.append("\nimport " + newImport + ";");
+                }
+            }
+            PsiPackageStatement packageStatement = javaFile.getPackageStatement();
+            int start = 0;
+            if (packageStatement != null) {
+                start = packageStatement.getTextLength() + packageStatement.getTextOffset();
+            }
+            String insertText = newImportText.toString();
+            if (StringUtils.isNotBlank(insertText)) {
+                document.insertString(start, insertText);
+                // 格式化代码
+//                CodeStyleManager codeStyleManager = CodeStyleManager.getInstance(javaFile.getProject());
+//                codeStyleManager.reformat(importList);
+                psiDocumentManager.commitDocument(document);
+            }
         }
     }
+
 
     public static void main(String[] args) {
         System.out.println(getGetterMethodName("code"));

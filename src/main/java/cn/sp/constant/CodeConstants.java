@@ -51,6 +51,11 @@ public class CodeConstants {
         String toNewListStr = "List<$fieldType> $newVariableName = $variableName.stream().map($simpleClassName::$fieldGetterMethodName).distinct().collect(Collectors.toList());";
         CODE_TEMPLATE_MAP.put(ActionTypeEnum.TO_NEW_LIST, toNewListStr);
 
+        String returnIfEmptyStr = "${splitText}if (CollectionUtils.isEmpty($variableName)) {" +
+                "${splitText}${indentText}return $emptyList;" +
+                "${splitText}}";
+        CODE_TEMPLATE_MAP.put(ActionTypeEnum.RETURN_IF_EMPTY, returnIfEmptyStr);
+
     }
 
     public static void main(String[] args) {
