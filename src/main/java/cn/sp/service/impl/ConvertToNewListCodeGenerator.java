@@ -17,6 +17,11 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * @Author: Ship
  * @Description:
@@ -110,6 +115,17 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
                 PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(generateContext.getProject());
                 generateContext.getDocument().insertString(lineStartOffset, codeLine);
                 psiDocumentManager.commitDocument(generateContext.getDocument());
+            });
+        });
+
+        // 自动导包
+        Set<String> importSet = new HashSet<>();
+        importSet.add("java.util.stream.Collectors");
+
+        application.runWriteAction(() -> {
+            WriteCommandAction.runWriteCommandAction(generateContext.getProject(), () -> {
+                PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(generateContext.getProject());
+                CodeUtils.addImportToFile(psiDocumentManager, (PsiJavaFile) generateContext.getPsiFile(), generateContext.getDocument(), importSet);
             });
         });
     }

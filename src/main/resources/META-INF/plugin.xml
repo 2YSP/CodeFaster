@@ -24,60 +24,59 @@
         <action id="CodeFaster.ListToMapAction" class="cn.sp.action.ListToMapAction" text="Convert List To Map"
                 description="generate code of list to map">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
-<!--            <keyboard-shortcut-->
-<!--                    keymap="$default"-->
-<!--                    first-keystroke="control shift T"/>-->
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control shift T"/>
 
-<!--            &lt;!&ndash; ...except the "Mac OS X" keymap and its children. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X"-->
-<!--                    first-keystroke="control shift T"-->
-<!--                    remove="true"/>-->
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="control shift T"
+                    remove="true"/>
 
-<!--            &lt;!&ndash; The "Mac OS X 10.5+" keymap and its children will have only-->
-<!--            this keyboard shortcut for this action. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X 10.5+"-->
-<!--                    first-keystroke="control shift T"-->
-<!--                    replace-all="true"/>-->
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="control shift T"
+                    replace-all="true"/>
         </action>
         <action id="CodeFaster.GroupByListToMapAction" class="cn.sp.action.GroupByListToMapAction"
                 text="Group By List To Map" description="generate code of group by list to map">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
-<!--            <keyboard-shortcut-->
-<!--                    keymap="$default"-->
-<!--                    first-keystroke="control shift Y"/>-->
+            <keyboard-shortcut
+                    keymap="$default"
+                    first-keystroke="control shift Y"/>
 
-<!--            &lt;!&ndash; ...except the "Mac OS X" keymap and its children. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X"-->
-<!--                    first-keystroke="control shift Y"-->
-<!--                    remove="true"/>-->
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="control shift Y"
+                    remove="true"/>
 
-<!--            &lt;!&ndash; The "Mac OS X 10.5+" keymap and its children will have only-->
-<!--            this keyboard shortcut for this action. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X 10.5+"-->
-<!--                    first-keystroke="control shift Y"-->
-<!--                    replace-all="true"/>-->
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="control shift Y"
+                    replace-all="true"/>
         </action>
         <action id="CodeFaster.ConvertToNewListAction" class="cn.sp.action.ConvertToNewListAction"
                 text="Convert To New List" description="convert current list to new List by field">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
-<!--            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl U"/>-->
+            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl K"/>
+            <!-- ...except the "Mac OS X" keymap and its children. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X"
+                    first-keystroke="control shift K"
+                    remove="true"/>
 
-<!--            &lt;!&ndash; ...except the "Mac OS X" keymap and its children. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X"-->
-<!--                    first-keystroke="control shift U"-->
-<!--                    remove="true"/>-->
-
-<!--            &lt;!&ndash; The "Mac OS X 10.5+" keymap and its children will have only-->
-<!--            this keyboard shortcut for this action. &ndash;&gt;-->
-<!--            <keyboard-shortcut-->
-<!--                    keymap="Mac OS X 10.5+"-->
-<!--                    first-keystroke="control shift U"-->
-<!--                    replace-all="true"/>-->
+            <!-- The "Mac OS X 10.5+" keymap and its children will have only
+            this keyboard shortcut for this action. -->
+            <keyboard-shortcut
+                    keymap="Mac OS X 10.5+"
+                    first-keystroke="control shift K"
+                    replace-all="true"/>
         </action>
         <action id="CodeFaster.ReturnIfEmptyAction" class="cn.sp.action.ReturnIfEmptyAction" text="Return If List Empty"
                 description="return a empty list if current list is empty">

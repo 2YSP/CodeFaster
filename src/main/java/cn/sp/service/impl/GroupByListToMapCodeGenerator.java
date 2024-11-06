@@ -17,6 +17,9 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @Author: Ship
  * @Description:
@@ -51,6 +54,18 @@ public class GroupByListToMapCodeGenerator implements CodeGenerator {
                 PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(generateContext.getProject());
                 generateContext.getDocument().insertString(lineStartOffset, codeLine);
                 psiDocumentManager.commitDocument(generateContext.getDocument());
+            });
+        });
+
+        // 自动导包
+        Set<String> importSet = new HashSet<>();
+        importSet.add("java.util.stream.Collectors");
+        importSet.add("java.util.Map");
+
+        application.runWriteAction(() -> {
+            WriteCommandAction.runWriteCommandAction(generateContext.getProject(), () -> {
+                PsiDocumentManager psiDocumentManager = PsiDocumentManager.getInstance(generateContext.getProject());
+                CodeUtils.addImportToFile(psiDocumentManager, (PsiJavaFile) generateContext.getPsiFile(), generateContext.getDocument(), importSet);
             });
         });
     }

@@ -42,13 +42,13 @@ public class CodeConstants {
     public static final Map<ActionTypeEnum, String> CODE_TEMPLATE_MAP = new HashMap<>();
 
     static {
-        String str = "Map<$fieldType,$simpleClassName> $newVariableName = $variableName.stream().collect(Collectors.toMap($simpleClassName::$fieldGetterMethodName, r -> r));";
+        String str = "Map<$fieldType,$simpleClassName> $newVariableName = $variableName.stream().collect(Collectors.toMap(r -> r.$fieldGetterMethodName(), r -> r));";
         CODE_TEMPLATE_MAP.put(ActionTypeEnum.LIST_TO_MAP, str);
 
-        String groupByCodeStr = "Map<$fieldType,List<$simpleClassName>> $newVariableName = $variableName.stream().collect(Collectors.groupingBy($simpleClassName::$fieldGetterMethodName));";
+        String groupByCodeStr = "Map<$fieldType,List<$simpleClassName>> $newVariableName = $variableName.stream().collect(Collectors.groupingBy(r -> r.$fieldGetterMethodName()));";
         CODE_TEMPLATE_MAP.put(ActionTypeEnum.GROUP_BY_LIST_TO_MAP, groupByCodeStr);
 
-        String toNewListStr = "List<$fieldType> $newVariableName = $variableName.stream().map($simpleClassName::$fieldGetterMethodName).distinct().collect(Collectors.toList());";
+        String toNewListStr = "List<$fieldType> $newVariableName = $variableName.stream().map(r -> r.$fieldGetterMethodName()).distinct().collect(Collectors.toList());";
         CODE_TEMPLATE_MAP.put(ActionTypeEnum.TO_NEW_LIST, toNewListStr);
 
         String returnIfEmptyStr = "${splitText}if (CollectionUtils.isEmpty($variableName)) {" +
