@@ -1,6 +1,6 @@
 package cn.sp.service.impl;
 
-import cn.sp.action.ChooseFieldDialogWrapper;
+import cn.sp.dialog.ChooseFieldDialogWrapper;
 import cn.sp.constant.CodeConstants;
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.exception.ShipException;
@@ -94,18 +94,7 @@ public class ListToMapCodeGenerator implements CodeGenerator {
     }
 
 
-//    /**
-//     * 获取输入的字段名
-//     * @param project
-//     * @param dataContext
-//     * @param psiFile
-//     * @return
-//     */
-//    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
-//        String fieldName = Messages.showInputDialog(project, "What is the field name of map key?", "Input the field name", Messages.getQuestionIcon());
-//        System.out.println("================" + fieldName);
-//        return fieldName;
-//    }
+
 
     private void generateCode(GenerateContext generateContext, GenerateCodeInfo codeInfo) {
         Application application = ApplicationManager.getApplication();

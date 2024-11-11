@@ -97,8 +97,6 @@
                 description="return a empty list if current list is empty">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
         </action>
-<!--        <action id="CodeFaster.TestAction" class="cn.sp.action.TestAction" text="TestAction" description="test action ">-->
-<!--            <add-to-group group-id="GenerateGroup" anchor="last"/>-->
-<!--        </action>-->
+
     </actions>
 </idea-plugin>

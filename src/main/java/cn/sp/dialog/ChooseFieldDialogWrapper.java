@@ -1,4 +1,4 @@
-package cn.sp.action;
+package cn.sp.dialog;
 
 import cn.sp.constant.CodeConstants;
 import com.intellij.openapi.ui.DialogWrapper;

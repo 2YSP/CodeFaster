@@ -1,6 +1,6 @@
 package cn.sp.service.impl;
 
-import cn.sp.action.ChooseFieldDialogWrapper;
+import cn.sp.dialog.ChooseFieldDialogWrapper;
 import cn.sp.constant.CodeConstants;
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.exception.ShipException;
@@ -97,18 +97,7 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
     }
 
 
-    /**
-     * 获取输入的字段名
-     *
-     * @param project
-     * @param dataContext
-     * @param psiFile
-     * @return
-     */
-//    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
-////        String fieldName = Messages.showInputDialog(project, "Which field do you want to use for convert new list?", "Input the field name", Messages.getQuestionIcon());
-//        return fieldName;
-//    }
+
 
     /**
      * 生成代码

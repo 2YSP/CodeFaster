@@ -1,6 +1,6 @@
 package cn.sp.service.impl;
 
-import cn.sp.action.ChooseFieldDialogWrapper;
+import cn.sp.dialog.ChooseFieldDialogWrapper;
 import cn.sp.constant.CodeConstants;
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.exception.ShipException;
@@ -132,11 +132,7 @@ public class GroupByListToMapCodeGenerator implements CodeGenerator {
         return generateCodeInfo;
     }
 
-//    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
-//        String fieldName = Messages.showInputDialog(project, "Which field you want to group by?", "Input the field name", Messages.getQuestionIcon());
-//        System.out.println("================" + fieldName);
-//        return fieldName;
-//    }
+
 
     @Override
     public ActionTypeEnum actionType() {
