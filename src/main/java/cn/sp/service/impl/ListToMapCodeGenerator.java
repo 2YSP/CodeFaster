@@ -1,5 +1,6 @@
 package cn.sp.service.impl;
 
+import cn.sp.action.ChooseFieldDialogWrapper;
 import cn.sp.constant.CodeConstants;
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.exception.ShipException;
@@ -13,7 +14,6 @@ import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 
@@ -36,6 +36,9 @@ public class ListToMapCodeGenerator implements CodeGenerator {
             throw new ShipException("only support Java8 or higher!");
         }
         GenerateCodeInfo codeInfo = getGenerateCodeInfo(project, dataContext, psiFile, generateContext);
+        if (codeInfo == null) {
+            return;
+        }
         generateCode(generateContext, codeInfo);
     }
 
@@ -50,7 +53,6 @@ public class ListToMapCodeGenerator implements CodeGenerator {
      */
     private GenerateCodeInfo getGenerateCodeInfo(Project project, DataContext dataContext, PsiFile psiFile,
                                                 GenerateContext generateContext) {
-        String fieldName = getFieldName(project, dataContext, psiFile);
         PsiTypeElement psiTypeElement = CodeUtils.getPsiTypeElement(generateContext.getPsiElement());
         // java.util.List<java.lang.Integer>
         String canonicalText = psiTypeElement.getType().getCanonicalText();
@@ -60,16 +62,25 @@ public class ListToMapCodeGenerator implements CodeGenerator {
         String className = CodeUtils.parseGenericTypeName(canonicalText);
         GenerateCodeInfo generateCodeInfo = new GenerateCodeInfo();
         generateCodeInfo.setClassName(className);
-        generateCodeInfo.setFieldName(fieldName);
 
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
         PsiClass psiClass = javaPsiFacade.findClass(className, GlobalSearchScope.allScope(project));
         generateCodeInfo.setSimpleClassName(psiClass.getName());
-        PsiField psiField = CodeUtils.getField(psiClass, fieldName);
+
+        PsiField psiField = null;
+        ChooseFieldDialogWrapper wrapper = new ChooseFieldDialogWrapper("Please choose the field", psiClass.getFields());
+        if (wrapper.showAndGet()) {
+            psiField = wrapper.getSelectedValue();
+            System.out.println("===========" + psiField.getName());
+        } else {
+            return null;
+        }
         // 校验是否具备该字段
         if (psiField == null){
             throw new ShipException("Invalid field name!");
         }
+        String fieldName = psiField.getName();
+        generateCodeInfo.setFieldName(fieldName);
         generateCodeInfo.setFieldType(psiField.getType().getPresentableText());
 
         String getterMethodName = CodeUtils.getGetterMethodName(fieldName);
@@ -83,18 +94,18 @@ public class ListToMapCodeGenerator implements CodeGenerator {
     }
 
 
-    /**
-     * 获取输入的字段名
-     * @param project
-     * @param dataContext
-     * @param psiFile
-     * @return
-     */
-    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
-        String fieldName = Messages.showInputDialog(project, "What is the field name of map key?", "Input the field name", Messages.getQuestionIcon());
-        System.out.println("================" + fieldName);
-        return fieldName;
-    }
+//    /**
+//     * 获取输入的字段名
+//     * @param project
+//     * @param dataContext
+//     * @param psiFile
+//     * @return
+//     */
+//    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
+//        String fieldName = Messages.showInputDialog(project, "What is the field name of map key?", "Input the field name", Messages.getQuestionIcon());
+//        System.out.println("================" + fieldName);
+//        return fieldName;
+//    }
 
     private void generateCode(GenerateContext generateContext, GenerateCodeInfo codeInfo) {
         Application application = ApplicationManager.getApplication();

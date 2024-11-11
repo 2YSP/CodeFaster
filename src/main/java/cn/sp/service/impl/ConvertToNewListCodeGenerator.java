@@ -1,5 +1,6 @@
 package cn.sp.service.impl;
 
+import cn.sp.action.ChooseFieldDialogWrapper;
 import cn.sp.constant.CodeConstants;
 import cn.sp.enums.ActionTypeEnum;
 import cn.sp.exception.ShipException;
@@ -13,14 +14,11 @@ import com.intellij.openapi.application.Application;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.*;
 import com.intellij.psi.search.GlobalSearchScope;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @Author: Ship
@@ -38,6 +36,9 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
             throw new ShipException("only support Java8 or higher!");
         }
         GenerateCodeInfo codeInfo = getGenerateCodeInfo(project, dataContext, psiFile, generateContext);
+        if (codeInfo == null) {
+            return;
+        }
         generateCode(generateContext, codeInfo);
     }
 
@@ -52,7 +53,7 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
      */
     private GenerateCodeInfo getGenerateCodeInfo(Project project, DataContext dataContext, PsiFile psiFile,
                                                  GenerateContext generateContext) {
-        String fieldName = getFieldName(project, dataContext, psiFile);
+
         PsiTypeElement psiTypeElement = CodeUtils.getPsiTypeElement(generateContext.getPsiElement());
         // java.util.List<java.lang.Integer>
         String canonicalText = psiTypeElement.getType().getCanonicalText();
@@ -62,16 +63,26 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
         String className = CodeUtils.parseGenericTypeName(canonicalText);
         GenerateCodeInfo generateCodeInfo = new GenerateCodeInfo();
         generateCodeInfo.setClassName(className);
-        generateCodeInfo.setFieldName(fieldName);
+
 
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
         PsiClass psiClass = javaPsiFacade.findClass(className, GlobalSearchScope.allScope(project));
         generateCodeInfo.setSimpleClassName(psiClass.getName());
-        PsiField psiField = CodeUtils.getField(psiClass, fieldName);
+
+        PsiField psiField = null;
+        ChooseFieldDialogWrapper wrapper = new ChooseFieldDialogWrapper("Please choose the field", psiClass.getFields());
+        if (wrapper.showAndGet()) {
+            psiField = wrapper.getSelectedValue();
+            System.out.println("===========" + psiField.getName());
+        } else {
+            return null;
+        }
         // 校验是否具备该字段
         if (psiField == null) {
             throw new ShipException("Invalid field name!");
         }
+        String fieldName = psiField.getName();
+        generateCodeInfo.setFieldName(fieldName);
         generateCodeInfo.setFieldType(psiField.getType().getPresentableText());
 
         String getterMethodName = CodeUtils.getGetterMethodName(fieldName);
@@ -94,10 +105,10 @@ public class ConvertToNewListCodeGenerator implements CodeGenerator {
      * @param psiFile
      * @return
      */
-    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
-        String fieldName = Messages.showInputDialog(project, "Which field do you want to use for convert new list?", "Input the field name", Messages.getQuestionIcon());
-        return fieldName;
-    }
+//    private String getFieldName(Project project, DataContext dataContext, PsiFile psiFile) {
+////        String fieldName = Messages.showInputDialog(project, "Which field do you want to use for convert new list?", "Input the field name", Messages.getQuestionIcon());
+//        return fieldName;
+//    }
 
     /**
      * 生成代码
