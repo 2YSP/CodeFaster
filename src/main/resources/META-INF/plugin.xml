@@ -4,20 +4,28 @@
     <version>1.0</version>
     <vendor email="stylishman525@qq.com" url="https://www.cnblogs.com/2YSP">ship</vendor>
 
-    <description><![CDATA[help you code faster, like auto convert list to map etc.
+    <description><![CDATA[Help you code faster, like auto convert list to map etc.
         <br><a href="https://github.com/2YSP/CodeFaster">Source code on Github</a><br>
+       Features:<br>
       <ul>
-          <li>支持根据List集合某个字段自动生成map(Support automatic generation of maps based on a field in the List collection)</li>
-          <li>支持根据List集合某个字段自动分组聚合生成map(Support automatic grouping and map generation based on a field in the List collection)</li>
-          <li>支持根据List集合某个字段自动生成新List集合(Support automatic generation of a new List collection based on a field in the List collection)</li>
-          <li>支持判断当前List集合集合是否为空，如果为空则返回空List(Support checking whether the current List collection is empty, and if it is empty, return an empty List)</li>
+          <li>Support automatic generation of maps based on a field in the List collection</li>
+          <li>Support automatic grouping and map generation based on a field in the List collection</li>
+          <li>Support automatic generation of a new List collection based on a field in the List collection</li>
+          <li>Support checking whether the current List collection is empty, and if it is empty, return an empty List</li>
+      </ul>
+      Usage: <br>Select the List collection, press the shortcut key [Generate..] (windows: Alt+Insert, mac: Command+N),
+      and then select the corresponding command,select the attribute to be converted in the pop-up window,
+      and then click OK to generate the code.<br>
+
+      特性：<br>
+        <ul>
+          <li>支持根据List集合某个字段自动生成map</li>
+          <li>支持根据List集合某个字段自动分组聚合生成map</li>
+          <li>支持根据List集合某个字段自动生成新List集合</li>
+          <li>支持判断当前List集合集合是否为空，如果为空则返回空List</li>
       </ul>
       用法：<br>选中List集合，按[Generate..]的快捷键(windows:Alt + Insert,mac:Command + N)然后选择对应的命令
-      ，弹窗中输入要转换的属性，然后点击确定，即可生成代码。<br>
-      Usage: <br>Select the List collection, press the shortcut key [Generate..] (windows: Alt+Insert, mac: Command+N)
-      , and then select the corresponding command
-      Enter the attribute to be converted in the pop-up window, and then click OK to generate the code.
-
+      ，弹窗中选择要转换的属性，然后点击确定，即可生成代码。
     ]]>
     </description>
 
