@@ -10,7 +10,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.pom.java.LanguageLevel;
 import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.PsiShortNamesCache;
 import org.apache.commons.lang3.StringUtils;
@@ -318,8 +317,6 @@ public class CodeUtils {
             if (StringUtils.isNotBlank(insertText)) {
                 document.insertString(start, insertText);
                 // 格式化代码
-//                CodeStyleManager codeStyleManager = CodeStyleManager.getInstance(javaFile.getProject());
-//                codeStyleManager.reformat(importList);
                 psiDocumentManager.commitDocument(document);
             }
         }
